@@ -13,7 +13,7 @@ const pool = new Pool({
   port: 5432,
 });
 
-// 1) Get list of tables dynamically
+//Get list of tables dynamically
 app.get('/api/tables', async (req, res) => {
   try {
     const result = await pool.query(`
@@ -29,7 +29,7 @@ app.get('/api/tables', async (req, res) => {
   }
 });
 
-// 2) Get data from any table
+//Get data from any table
 app.get('/api/:table', async (req, res) => {
   const { table } = req.params;
   try {

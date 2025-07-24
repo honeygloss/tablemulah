@@ -43,7 +43,7 @@ function App() {
       </header>
       <main style={{ paddingTop: "80px" }}>
         <div style={{ marginBottom: 24 }}>
-          <h2>Select table from database to display</h2>
+          <h3>Select table from database to display</h3>
           <select
             value={selectedTable}
             onChange={(e) => setSelectedTable(e.target.value)}
