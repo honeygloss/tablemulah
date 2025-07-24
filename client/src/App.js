@@ -7,20 +7,17 @@ function App() {
   const [selectedTable, setSelectedTable] = useState("");
   const [data, setData] = useState([]);
 
-  // === API Base URL ===
-  const API_BASE =
-    process.env.NODE_ENV === "production"
-      ? "" // same domain in Railway production
-      : "http://localhost:5000";
+  // Automatically chooses correct base URL
+  const API_BASE = window.location.origin.includes("localhost")
+    ? "http://localhost:5000"
+    : ""; // Railway production uses same domain
 
   useEffect(() => {
     fetch(`${API_BASE}/api/tables`)
       .then((res) => res.json())
       .then((tables) => {
         setTables(tables);
-        if (tables.length > 0) {
-          setSelectedTable(tables[0]);
-        }
+        if (tables.length > 0) setSelectedTable(tables[0]);
       });
   }, [API_BASE]);
 
@@ -33,9 +30,7 @@ function App() {
   }, [selectedTable, API_BASE]);
 
   const getColumnLetters = (count) =>
-    Array.from({ length: count }, (_, i) =>
-      String.fromCharCode(65 + i)
-    );
+    Array.from({ length: count }, (_, i) => String.fromCharCode(65 + i));
 
   const filterColumns = (row) =>
     Object.keys(row).filter((col) => col.toLowerCase() !== "id");

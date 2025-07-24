@@ -9,7 +9,8 @@ app.use(express.json());
 
 // === PostgreSQL ===
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || "postgres://postgres:admin@localhost:5432/tablemulah",
+  connectionString:
+    process.env.DATABASE_URL || "postgres://postgres:admin@localhost:5432/tablemulah",
   ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
 });
 
@@ -17,11 +18,11 @@ const pool = new Pool({
 app.get("/api/tables", async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT table_name 
-      FROM information_schema.tables 
+      SELECT table_name
+      FROM information_schema.tables
       WHERE table_schema='public'
     `);
-    res.json(result.rows.map(r => r.table_name));
+    res.json(result.rows.map((r) => r.table_name));
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -38,9 +39,9 @@ app.get("/api/:table", async (req, res) => {
 });
 
 // === React Frontend ===
-app.use(express.static(path.join(__dirname, "client/build")));
+app.use(express.static(path.resolve(__dirname, "client/build")));
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client/build", "index.html"));
+  res.sendFile(path.resolve(__dirname, "client/build", "index.html"));
 });
 
 // === Start Server ===
