@@ -7,10 +7,9 @@ function App() {
   const [selectedTable, setSelectedTable] = useState("");
   const [data, setData] = useState([]);
 
-  // Automatically chooses correct base URL
   const API_BASE = window.location.origin.includes("localhost")
     ? "http://localhost:5000"
-    : ""; // Railway production uses same domain
+    : ""; 
 
   useEffect(() => {
     fetch(`${API_BASE}/api/tables`)
